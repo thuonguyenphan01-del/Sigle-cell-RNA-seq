@@ -47,6 +47,7 @@ II.Các bước phân tích dữ liệu:.
 - PCA(đã học): Phương pháp giảm chiều dữ liệu phổ biến trong machine learning, dựa trên mô hình tuyến tính.Phương pháp này dựa trên quan sát rằng dữ liệu thường không phân bố ngẫu nhiên trong không gian mà thường phân bố gần các đường/mặt đặc biệt nào đó. PCA xem xét một trường hợp đặc biệt khi các mặt đặc biệt đó có dạng tuyến tính là các không gian con (subspace).Chỉ có thể locj các dữ liệu tuyến tính và bảo toàn phương sai cục bộ nhưng nó thường không nắm bắt được các mối quan hệ phi tuyến tính phức tạp. Vì vậy sẽ ưu tiên xử lý dữ kiệu thô trước rồi sẽ dùng 1 thuật toán giảm chiểu khác để xử lý dữ liệu phi tuyến tính.
 - t-SNE(đã họ): Phù hợp để xử lý cá dự liệu phi tuyến nói cách khác là dữ liệu phân cụm. Giup trực quang hóa dữ liệu 2D và 3D.t-SNE emphasizes local relationships and clusters.
 - UMAP: tương tự t-sne nhưng  t-SNE giữ lại cấu trúc cục bộ (có nghĩa là bạn không thể so sánh khoảng cách giữa các cụm) trong khi UMAP được cho là giữ lại cả cấu trúc cục bộ và toàn cục.UMAP focuses on complex, non-linear relationships.
+  - Umap thường được xem là phiên bản cao cấp hơn của t-sne tuy nhiên nếu như mục tiêu của model là phân cụm riêng biêt và quan tâm đến mối quan hệ gần mà không cần quan tâm đến cấu trúc toạn cục thì nên dung t-sne.
 4. Phân nhóm tế bào (Clustering).
   - Các thuật toán k-n cluster , Louran...
 5.Phân tích khác biệt biểu hiện gen (Marker..)
