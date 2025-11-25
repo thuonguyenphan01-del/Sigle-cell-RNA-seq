@@ -1,4 +1,5 @@
 # Sigle-cell-RNA-seq
+I. Lý thuyết về single cell RNA-seq
 -- Lý thuyết về sigle cell RNA-seq có thể tham khảo:https://www.youtube.com/watch?v=jwSPTgF9ESQ&t=7087s và https://rnaseqcoban.github.io/R_tutorial/intro/.
 
 1.Các bước cơ bản trong thí nghiệm scRNA-seq.
@@ -31,8 +32,22 @@ Phân tích dữ liệu scRNAseq thường bắt đầu với “Expression matr
 
 - Microfulidic (Fluidigm C1): sử dụng nguyên lý thuỷ động lực học để dẫn dắt từng tế bào vào một buồng phản ứng. Ưu điểm là tính tự động hoá và quy mô cao hơn so với microwell. Tuy nhiên, hiệu suất thấp, chỉ có 10% số lượng tế bào được giữ lại ở các buồng phản ứng; và giá thành cho một đĩa “chip” quá đắt đỏ.
 
-- Droplet (10X Genomics, in-Drop): ý tưởng của phương pháp droplet là bao bọc một tế bào trong một giọt dầu đã có sẵn bead gắn đoạn mồi và nguyên liệu cho phản ứng tạo cDNA. Đây là phương pháp có hiệu suất và quy mô cao nhất trong ba loại.  (Giong phương pháp Droplet trong RT-PCR dùng 1 giọt dầu có sãn mồi để khuếch đại, trường hợp này là phiên mã ngược và khuếch đại CDNA trong cùng 1 phản ứng  ?? Trong phần luyện tập có bước loại bỏ double droplet)
+- Droplet (10X Genomics, in-Drop): ý tưởng của phương pháp droplet là bao bọc một tế bào trong một giọt dầu đã có sẵn bead gắn đoạn mồi và nguyên liệu cho phản ứng tạo cDNA. Đây là phương pháp có hiệu suất và quy mô cao nhất trong ba loại.  (Giong phương pháp Droplet trong RT-PCR dùng 1 giọt dầu có sãn mồi để khuếch đại, trường hợp này là phiên mã ngược và khuếch đại CDNA trong cùng 1 phản ứng  ?? Trong phần luyện tập có bước loại bỏ double droplet).
 
+II.Các bước phân tích dữ liệu:
+1.Kiểm soát chất lượng dữ liệu (Cell Quality control).
+- Một khi đã có dữ liệu, chúng ta cần kiểm tra và loại bỏ các tế bào có chất lượng dữ liệu kém. Sai sót trong việc loại bỏ các tế bào có dữ liệu kém có thể làm nhiễu dữ liệu và ảnh hưởng tới việc tìm ra các thông tin mang ý nghĩa sinh học.
+2.Chuẩn hoá dữ liệu (Normalizing data).
+  - Bước chuẩn hóa dữ liệu luôn luôn cần việc xây dưng model. Tương tự nhue StandardScaler hay MinMax scaler .. thường hay dùng. Trong sigle cell RBA-seq thì thường dùng LogNormalization.
+  - Ở phần này, chúng ta sẽ sử dụng phương pháp chuẩn hóa theo global-scaling LogNormalize để chuẩn hóa các phép đo gene expression cho mỗi tế bào với tổng lượng gene expression, nhân giá trị này với hệ số tỷ lệ (mặc định là 10.000) và biến đổi hàm log cho kết quả. Có rất nhiều phương pháp để chuẩn hóa dữ liệu, nhưng đây là phương pháp đơn giản và trực quan nhất. Phép chia cho tổng gene expression được thực hiện để thay đổi tất cả các số lượng gene expression thành một số đo tương đối. Kinh nghiệm cho thấy rằng các yếu tố kỹ thuật (ví dụ tỷ lệ bắt giữ được RNA, hiệu quả của phiên mã ngược) chịu trách nhiệm phần lớn cho sự thay đổi số lượng phân tử RNA trên mỗi tế bào.
+  -  FindVariableFeatures là hàm tính gene expression trung bình và độ phân tán cho mỗi gen, đặt các gen này vào các bins, sau đó tính z-score cho sự phân tán trong mỗi bin. Điều này giúp kiểm soát mối quan hệ giữa độ biến thiên và gene expression trung bình.(Hiểu đơn giản là các gen có độ tương quan cao nhất với biểu hiện)
+3.Giảm chiều dữ liệu (Dimensionality reduction). 
+- PCA(đã học): Phương pháp giảm chiều dữ liệu phổ biến trong machine learning, dựa trên mô hình tuyến tính.Phương pháp này dựa trên quan sát rằng dữ liệu thường không phân bố ngẫu nhiên trong không gian mà thường phân bố gần các đường/mặt đặc biệt nào đó. PCA xem xét một trường hợp đặc biệt khi các mặt đặc biệt đó có dạng tuyến tính là các không gian con (subspace).Chỉ có thể locj các dữ liệu tuyến tính và bảo toàn phương sai cục bộ nhưng nó thường không nắm bắt được các mối quan hệ phi tuyến tính phức tạp. Vì vậy sẽ ưu tiên xử lý dữ kiệu thô trước rồi sẽ dùng 1 thuật toán giảm chiểu khác để xử lý dữ liệu phi tuyến tính.
+- t-SNE(đã họ): Phù hợp để xử lý cá dự liệu phi tuyến nói cách khác là dữ liệu phân cụm. Giup trực quang hóa dữ liệu 2D và 3D.t-SNE emphasizes local relationships and clusters.
+- UMAP: tương tự t-sne nhưng  t-SNE giữ lại cấu trúc cục bộ (có nghĩa là bạn không thể so sánh khoảng cách giữa các cụm) trong khi UMAP được cho là giữ lại cả cấu trúc cục bộ và toàn cục.UMAP focuses on complex, non-linear relationships.
+4. Phân nhóm tế bào (Clustering).
+  - Các thuật toán k-n cluster , Louran...
+5.Phân tích khác biệt biểu hiện gen (Marker..)
 
 
 
