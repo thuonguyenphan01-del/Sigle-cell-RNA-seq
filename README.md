@@ -1,5 +1,6 @@
 # Sigle-cell-RNA-seq
--- Lý thuyết về sigle cell RNA-seq có thể tham khảo:https://www.youtube.com/watch?v=jwSPTgF9ESQ&t=7087s và https://rnaseqcoban.github.io/R_tutorial/intro/
+-- Lý thuyết về sigle cell RNA-seq có thể tham khảo:https://www.youtube.com/watch?v=jwSPTgF9ESQ&t=7087s và https://rnaseqcoban.github.io/R_tutorial/intro/.
+
 1.Các bước cơ bản trong thí nghiệm scRNA-seq.
 - Phân lập tế bào từ mô.
 - Phân tách RNA từ từng tế bào.
