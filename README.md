@@ -1,4 +1,9 @@
 # Sigle-cell-RNA-seq
+File thực hành: Python (Scanpy và SCVI), R (Seurat).
+Video hướng dẫn thực hành với R -studio: https://www.youtube.com/watch?v=5HBzgsz8qyk&t=463s.
+script to perform standard workflow steps to analyze single cell RNA-Seq data.
+data: 20k Mixture of NSCLC DTCs from 7 donors, 3' v3.1.
+data source: https://www.10xgenomics.com/resources/datasets/10-k-human-pbm-cs-multiome-v-1-0-chromium-controller-1-standard-2-0-0.      
 I. Lý thuyết về single cell RNA-seq
 -- Lý thuyết về sigle cell RNA-seq có thể tham khảo:https://www.youtube.com/watch?v=jwSPTgF9ESQ&t=7087s và https://rnaseqcoban.github.io/R_tutorial/intro/.
 
